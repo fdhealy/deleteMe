@@ -1,0 +1,21 @@
+{
+    "FunctionName": "LambdaFunctionOverHttps",
+    "FunctionArn": "arn:aws:lambda:us-east-2:833170576244:function:LambdaFunctionOverHttps",
+    "Runtime": "nodejs12.x",
+    "Role": "arn:aws:iam::833170576244:role/lambdaapigateway",
+    "Handler": "index.handler",
+    "CodeSize": 659,
+    "Description": "",
+    "Timeout": 3,
+    "MemorySize": 128,
+    "LastModified": "2021-07-26T01:00:49.616+0000",
+    "CodeSha256": "h+CfRi3Q4N4/VsXDaBunb1tVdd3Jntrzf8VXi6cHElM=",
+    "Version": "$LATEST",
+    "TracingConfig": {
+        "Mode": "PassThrough"
+    },
+    "RevisionId": "3938a643-12f5-4ddb-8675-3ad21fda30c2",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "PackageType": "Zip"
+}
