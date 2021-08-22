@@ -45,7 +45,7 @@ def handler(event, context):
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
 
-
+# deletable message for practice :)
 
 
 
