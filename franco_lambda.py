@@ -14,20 +14,19 @@ import json
 #                 },
 #             }
 #     )
-def handler(event):
+def handler(event, context):
 
     print("Received event: " + json.dumps(event, indent=2))
     operation = event["operation"]
-    dynamo = boto3.resource("dynamodb").Table(event["hellonames"])
+    dynamo = boto3.resource("dynamodb")
+    table = dynamo.Table("hellonames")
+
     operations = {
         "create": lambda x: dynamo.put_item(**x),
         "read": lambda x: dynamo.get_item(**x),
-        "update": dynamo.update_item(
-            TableName="hellonames",
-            Item={
-                "user": {
-                    "S": "newUser",
-                },
+        "update": table.update_item(
+            Key={
+                "user": "newUser",
             },
         ),
         "delete": lambda x: dynamo.delete_item(**x),
