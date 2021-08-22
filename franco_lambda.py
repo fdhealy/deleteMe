@@ -14,46 +14,29 @@ import json
 #                 },
 #             }
 #     )
-def handler(event, context):
-  print('Loading function')
-    '''Provide an event that contains the following keys:
-      - operation: one of the operations in the operations dict below
-      - tableName: required for operations that interact with DynamoDB
-      - payload: a parameter to pass to the operation being performed
-    '''
-    #print("Received event: " + json.dumps(event, indent=2))
-    operation = event['operation']
-    dynamo = boto3.resource('dynamodb').Table(event['hellonames'])
+def handler(event):
+
+    print("Received event: " + json.dumps(event, indent=2))
+    operation = event["operation"]
+    dynamo = boto3.resource("dynamodb").Table(event["hellonames"])
     operations = {
-        'create': lambda x: dynamo.put_item(**x),
-        'read': lambda x: dynamo.get_item(**x),
-        'update': dynamo.update_item({
-          TableName='hellonames',
-	        Key={
-		        'user': {
-			      'S': 'newUser',
-		        },
-	        }
-          }),
-        'delete': lambda x: dynamo.delete_item(**x),
-        'list': lambda x: dynamo.scan(**x),
-        'echo': lambda x: x,
-        'ping': lambda x: 'pong'
+        "create": lambda x: dynamo.put_item(**x),
+        "read": lambda x: dynamo.get_item(**x),
+        "update": dynamo.update_item(
+            TableName="hellonames",
+            Item={
+                "user": {
+                    "S": "newUser",
+                },
+            },
+        ),
+        "delete": lambda x: dynamo.delete_item(**x),
+        "list": lambda x: dynamo.scan(**x),
+        "echo": lambda x: x,
+        "ping": lambda x: "pong",
     }
     if operation in operations:
+        print("operation = ", operation)
         return operations[operation]()
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
-
-# deletable message for practice :)
-
-
-
-
-
-Send a message to franco.healy
-
-
-
-
-
