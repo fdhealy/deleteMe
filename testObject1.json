@@ -1,0 +1,14 @@
+{
+    "steak":{
+      "Key": {
+        "user": "franco"
+      },
+      "AttributeUpdates": {
+        "timeuntilbday": {
+          "Value": 6325342436,
+          "Action": "PUT"
+        }
+      }
+    },
+    "potato": "update"
+    }

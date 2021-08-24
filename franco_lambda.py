@@ -17,25 +17,24 @@ import json
 def handler(event, context):
 
     print("Received event: " + json.dumps(event, indent=2))
-    operation = event["operation"]
+    operation = event["potato"]
+    mahinfo = event["steak"]
     dynamo = boto3.resource("dynamodb")
     table = dynamo.Table("hellonames")
 
     operations = {
-        "create": lambda x: dynamo.put_item(**x),
-        "read": lambda x: dynamo.get_item(**x),
-        "update": table.update_item(
-            Key={
-                "user": "newUser",
-            },
-        ),
-        "delete": lambda x: dynamo.delete_item(**x),
-        "list": lambda x: dynamo.scan(**x),
+        "create": lambda x: table.put_item(**x),
+        "read": lambda x: table.get_item(**x),
+        "update": lambda x: table.update_item(**x),
+        "delete": lambda x: table.delete_item(**x),
+        "list": lambda x: table.scan(**x),
         "echo": lambda x: x,
         "ping": lambda x: "pong",
     }
+    
+    
     if operation in operations:
         print("operation = ", operation)
-        return operations[operation]()
+        return operations[operation](mahinfo)
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
