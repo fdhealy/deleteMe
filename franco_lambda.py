@@ -4,29 +4,23 @@ import json
 import datetime
 dt = datetime.datetime
 
-
-def lambda_handler(event, context): 
-    dt = datetime.datetime
+def getUserBday(bday):
     now = dt.now()
+    userDateParts = bday.split('/')
+    userYr = userDateParts[0]
+    userMo = userDateParts[1]
+    userDy = userDateParts[2]
 
-    timeLeft = dt(year = 2021, month = 6, day = 13) - dt(year=now.year, month=now.month, day=now.day)
+    timeLeft = dt(year = userYr, month = userMo, day = userDy) - dt(year=now.year, month=now.month, day=now.day)
     ds = timeLeft.days*24*60*60*10^9
     print (ds+365*24*60*60*10^9)
 
-    return ds+365*24*60*60*10^9
+    # return ds+365*24*60*60*10^9
 
-# dynamo = boto3.resource('dynamodb')
-# table = dynamo.Table('hellonames')
-# def update():
-#     dynamo.update_item(
-#         TableName='hellonames',
-#             Key={
-#                 'user': {
-#                     'S': 'newUser',
-#                 },
-#             }
-#     )
 def handler(event, context):
+
+    userBday = getUserBday(event['bday'])
+
 
     print("Received event: " + json.dumps(event, indent=2))
     operation = event["potato"]
