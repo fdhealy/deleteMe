@@ -1,7 +1,19 @@
 from __future__ import print_function
 import boto3
 import json
+import datetime
+dt = datetime.datetime
 
+
+def lambda_handler(event, context): 
+    dt = datetime.datetime
+    now = dt.now()
+
+    timeLeft = dt(year = 2021, month = 6, day = 13) - dt(year=now.year, month=now.month, day=now.day)
+    ds = timeLeft.days*24*60*60*10^9
+    print (ds+365*24*60*60*10^9)
+
+    return ds+365*24*60*60*10^9
 
 # dynamo = boto3.resource('dynamodb')
 # table = dynamo.Table('hellonames')
@@ -35,6 +47,8 @@ def handler(event, context):
     
     if operation in operations:
         print("operation = ", operation)
+        
+        # TODO: Use try catch, handle response code != 200
         return operations[operation](mahinfo)
     else:
         raise ValueError('Unrecognized operation "{}"'.format(operation))
