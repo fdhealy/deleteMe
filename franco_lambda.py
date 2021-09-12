@@ -9,22 +9,41 @@ dt = datetime.datetime
 def getUserBday(bday):
     now = dt.now()
     userDateParts = bday.split("/")
-    userYr = userDateParts[0]
-    userMo = userDateParts[1]
-    userDy = userDateParts[2]
+    userYr = int(userDateParts[2])
+    userMo = int(userDateParts[0])
+    userDy = int(userDateParts[1])
+    
+    print(type(userMo),userMo)
 
     timeLeft = dt(year=userYr, month=userMo, day=userDy) - dt(
         year=now.year, month=now.month, day=now.day
     )
     ds = timeLeft.days * 24 * 60 * 60 * 10 ^ 9
     print(ds + 365 * 24 * 60 * 60 * 10 ^ 9)
+    
+    return ds+365*24*60*60*10^9
 
-    # return ds+365*24*60*60*10^9
 
+def handleDb(operation, tbleData):
+    #json.dump()
+    mahinfo = {
+        "Key": {
+            "user": "franco"
+        },
+        "AttributeUpdates": {
+            "userBday": {
+                "Value": tbleData[0],
+                "Action": "PUT"
+            }
+        }
+    }
 
-def handleDb(operation, data):
-    operation = event["potato"]
-    mahinfo = event["steak"]
+    
+    
+    # create JSON object using var "tbleData" with var "user" as optional
+    
+    
+    
     dynamo = boto3.resource("dynamodb")
     table = dynamo.Table("hellonames")
 
@@ -51,6 +70,6 @@ def handler(event, context):
     print("Received event: " + json.dumps(event, indent=2))
 
     if event["bday"]:
-        userBday = getUserBday(event["bday"])
+        timeToUserBday = getUserBday(event["bday"])
         handleDb("update", event["bday"])  # pass smg like dis'
-        return userBday
+        return timeToUserBday
